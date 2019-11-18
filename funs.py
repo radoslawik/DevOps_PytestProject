@@ -129,17 +129,22 @@ In main function connection with database is checked, then couple of operations 
  -> all values in table TESTING are fetched and displayed
 '''  
 def main():
-    if(testConnection("localhost","root","","devops")):
+    address = "localhost"
+    user = "root"
+    password = ""
+    database = "devops"
+    table = "TESTING"
+    if(testConnection(address,user,password,database)):
         print("Connection tested with success")
-    if(createTable("localhost","root","","devops", "TESTING")):
+    if(createTable(address,user,password,database,table)):
         print("Table created with success")
-    if(insertIntoTable("localhost","root","","devops", "TESTING", "Radoslaw", "1")):
+    if(insertIntoTable(address,user,password,database, table, "Radoslaw", "1")):
         print("Row added successfully")
-    if(insertIntoTable("localhost","root","","devops", "TESTING", "Joe", "2")):
+    if(insertIntoTable(address,user,password,database, table, "Joe", "2")):
         print("Row added successfully")
-    if(insertIntoTable("localhost","root","","devops", "TESTING", "Sue", "3")):
+    if(insertIntoTable(address,user,password,database, table, "Sue", "3")):
         print("Row added successfully")
-    if(selectFromTable("localhost","root","","devops", "TESTING")):
+    if(selectFromTable(address,user,password,database, table)):
         print("Data fetched successfully")
     
        
