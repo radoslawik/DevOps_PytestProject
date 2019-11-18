@@ -21,5 +21,15 @@ def test_testConnection():
     assert funs.testConnection("made_up_address", user, password, database) == False
     assert funs.testConnection(address, user, password, database) == True
     
+def test_createTable():  
+    assert funs.createTable(address, user, password, database, table) == True
+    assert funs.createTable(address, user, password, database, "") == False
+    
+def test_insertIntoTable():
+    assert funs.insertIntoTable(address, user, password, database, table, "Radoslaw", "1") == True
+    assert funs.insertIntoTable(address, user, password, database, table, "Radoslaw", "integer") == False
+    assert funs.insertIntoTable(address, user, password, database, table, "Radoslaw", "") == False
+    
+    
 
 
