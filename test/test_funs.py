@@ -12,13 +12,14 @@ address = "localhost"
 user = "root"
 password = ""
 database = "devops"
+table = "TESTING"
 
 def test_testConnection():  
-    assert funs.testConnection(address, user, password, "incorrect_db_name") == 1049
-    assert funs.testConnection(address, user, "incorrect_password", database) == 1045
-    assert funs.testConnection(address, "wrong_user", password, database) == 1045
-    assert funs.testConnection("made_up_address", user, password, database) == 2003
-    assert funs.testConnection(address, user, password, database) == 0
+    assert funs.testConnection(address, user, password, "incorrect_db_name") == False
+    assert funs.testConnection(address, user, "incorrect_password", database) == False
+    assert funs.testConnection(address, "wrong_user", password, database) == False
+    assert funs.testConnection("made_up_address", user, password, database) == False
+    assert funs.testConnection(address, user, password, database) == True
     
 
 

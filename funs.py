@@ -22,16 +22,47 @@ def testConnection(address, username, password, database):
         conn.close()
     except pymysql.InternalError as e:
         print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
-        return e.args[0]
+        return False
     except pymysql.OperationalError as e:
         print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
-        return e.args[0]
+        return False
+    except:
+        return False
+        
+    return True
     
-    return 0
+def createTable(address, username, password, database, table):
+    try:
+        # Open database connection
+        conn = pymysql.connect(address, username, password, database)
+        # prepare a cursor object using cursor() method
+        cursor = db.cursor()
+        # Drop table if it already exist using execute() method.
+        check_command = "DROP TABLE IF EXISTS " + table;
+        cursor.execute(check_command)
+        # Create table as per requirement
+        command = "CREATE TABLE " + table + "(NAME  VARCHAR(30) NOT NULL, NUMBER INT)"
+        cursor.execute(command)
+        # disconnect from server
+        conn.close()
+    except pymysql.InternalError as e:
+        print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
+        return False
+    except pymysql.OperationalError as e:
+        print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
+        return False
+    except:
+        print('ERROR')
+        return False
+        
+    return True
     
 def main():
-    if(testConnection("localhost","root","","devops") == 0):
-        print("Connection tested with success") 
+    if(testConnection("localhost","root","","devops")):
+        print("Connection tested with success")
+    if(createTable("localhost","root","","devops", "TESTING")):
+        print("Table created with success")
     
+       
 if __name__ == "__main__":
     main()
