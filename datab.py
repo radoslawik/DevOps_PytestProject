@@ -9,6 +9,33 @@ Created on Fri Nov 15 10:55:58 2019
 import pymysql
 
 '''
+Create database for the data with city coordinates
+'''
+def createDatabase(address, username, password, database):
+    command = "CREATE DATABASE " + database;
+    try:
+        charSet = "utf8mb4"
+        cursorType = pymysql.cursors.DictCursor
+        conn = pymysql.connect(host=address, user=username, password=password, charset=charSet, cursorclass=cursorType)
+        cursor = conn.cursor()
+        check_command = "DROP DATABASE IF EXISTS " + database;
+        # execute check command to avoid error
+        cursor.execute(check_command)
+        cursor.execute(command)
+    except pymysql.InternalError as e:
+        print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
+        return False
+    except pymysql.OperationalError as e:
+        print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
+        return False
+    except:
+        print('UNKNOWN ERROR')
+        return False
+        
+    return True
+            
+
+'''
 Checks connection with database and prints its version
 '''
 def testConnection(address, username, password, database):
@@ -47,9 +74,6 @@ def createTable(address, username, password, database, table):
     try:
         conn = pymysql.connect(address, username, password, database)
         cursor = conn.cursor()
-        check_command = "DROP TABLE IF EXISTS " + table;
-        # execute check command to avoid error
-        cursor.execute(check_command)
         cursor.execute(command)
         conn.close()
     except pymysql.InternalError as e:
@@ -123,3 +147,6 @@ def selectFromTable(address, username, password, database, table):
         return None
         
     return results
+    
+if __name__ == "__main__":
+    createDatabase("localhost", "root", "", "asf")

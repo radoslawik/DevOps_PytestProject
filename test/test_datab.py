@@ -12,14 +12,20 @@ import sys
 address = "localhost" # address of the database
 user = "root" # your username
 password = "" # your password
-database = "devops" # your database name
-table = "TESTING" # table name to store names and numbers (default "TESTING")
+database = "pytestproject_testing" # your database name
+table = "test_table" # table name to store names and numbers (default "TESTING")
 sys.path.insert(1, 'D:/Dokumenty/Studia/Master2/DevOps/PytestProject') # path to testing file ("datab.py")
 ########################### END ###############################
 
 #import testing module
 import datab
 
+def test_createDatabase():
+    assert datab.createDatabase(address, user, password, database) == True # correct data
+    assert datab.createDatabase(address, user, password, "") == False # incorrect database name
+    assert datab.createDatabase(address, user, "incorrect_password", database) == False # in case of incorrect password
+    assert datab.createDatabase(address, "wrong_user", password, database) == False # in case of wrong login
+    assert datab.createDatabase("made_up_address", user, password, database) == False # in case of wrong database address
 
 def test_testConnection():  
     assert datab.testConnection(address, user, password, "incorrect_db_name") == False # in case of wrong database name

@@ -1,11 +1,12 @@
 # DevOps_PytestProject
-Testing simple database queries with Pytest framework. Features of the application consists of:
+Calculating distance between two cities using Harvesine formula. Testing simple database queries with Pytest framework. Features of the application consists of:
+ - Creating database
  - Testing connection with database
  - Creating a table in database
  - Inserting into table
- - Reading and displaying all data from table
- - Deleting [in progress]
- - Updating [in progress]
+ - Reading data from table
+ - Fetching coordinates of the city from the data
+ - Calculating distance between two cities
  
 # Prerequisites
 To run this application you need to have installed followed components:
@@ -22,9 +23,22 @@ pip install pymysql
 
 # Running application
 
-Clone or download repository. To be able to run the project also make sure that mysql client is running. 
-To run the application...
-To run the tests...
+Clone or download repository. To be able to run the project also make sure that mysql client is running. WARNING: Before running the program you can modify the default database name in haversine.py (otherwise existing one with default name will be dropped). Default database name is "pytestproject_testing". 
+To run the application just go the project folder and simply use command
+```bash
+python haversine.py <mysql_address> <mysql_username> <mysql_password>
+```
+For example:
+```bash
+python haversine.py localhost root ""
+```
+NOTICE: to set empty value use quotes
+
+To run the tests use instead (also in the project main directory)
+```bash
+pytest
+```
+NOTICE: mySQL server address, username and password have to be changes in test_haversine.py and test_datab.py
 
 # Student info
 PUDELKO Radoslaw

@@ -1,19 +1,23 @@
 from datab import *
 from math import radians, cos, sin, asin, sqrt
+import sys
 
-address = "localhost"
-user = "root"
-password = ""
-database = "devops"
-table = "TESTING"
-    
+address = []
+password = []
+user = []
+table = []
+database = []
 '''
 In putData function connection with database is checked, then couple of operations are proceeded:
- -> table TESTING is created (if table already exists then it is dropped)
- -> three values are inserted into table TESTING
- -> all values in table TESTING are fetched and displayed
+ -> database is created (if database already exists then it is dropped)
+ -> table test_table is created
+ -> three values are inserted into table
 '''  
-def putData():
+def putData(address, user, password, database, table):
+    if(createDatabase(address,user,password,database)):
+        print("Database now exists")
+    else:
+        return False
     if(testConnection(address,user,password,database)):
         print("Connection tested with success")
     else:
@@ -38,9 +42,9 @@ def putData():
     
 '''
 In getData function:
- -> all values in table TESTING are fetched and displayed
+ -> all values in table are fetched and displayed
 '''  
-def getData():
+def getData(address, user, password, database, table):
     data = selectFromTable(address,user,password,database,table)
     if(data):
         print("Data fetched successfully")
@@ -84,11 +88,10 @@ def calcDistance(city1, city2):
     ans = str(round(c*r, 2)) # round and save as string to simplify
     return ans
 
-       
-if __name__ == "__main__":
-    
-    putData() # put data into database -> values specified in datab.py
-    data = getData() # retrieve data from database
+def main(address, user, password, database, table):
+
+    putData(address, user, password, database, table) # put data into database -> values specified in datab.py
+    data = getData(address, user, password, database, table) # retrieve data from database
     cordCracow = getCords(data, "Cracow") #retrieve city coordinates
     cordParis = getCords(data, "Paris")
     cordRome = getCords(data, "Rome")
@@ -100,4 +103,20 @@ if __name__ == "__main__":
     print(calcDistance(cordCracow, cordRome))
     
     print("Distance between Paris and Cracow [km]: " )
-    print(calcDistance(cordParis, cordCracow))
+    print(calcDistance(cordParis, cordCracow))   
+     
+if __name__ == "__main__":
+
+    database = "pytestproject_testing" #WARNING: existing database with that name will be dropped
+    table = "test_table"
+    if(len(sys.argv) != 4):
+        print("Wrong arguments! Trying with default ones")
+        address = "localhost"
+        user = "root"
+        password = ""
+    else:
+        address = sys.argv[1]
+        user = sys.argv[2]
+        password = sys.argv[3]
+    main(address, user, password, database, table)
+ 
