@@ -9,7 +9,7 @@ Created on Fri Nov 15 10:55:58 2019
 import pymysql
 
 '''
-Checks connection with database and prints it's version
+Checks connection with database and prints its version
 '''
 def testConnection(address, username, password, database):
     
@@ -43,7 +43,7 @@ Executes CREATE TABLE command to generate new empty table
 '''
 def createTable(address, username, password, database, table):
 
-    command = "CREATE TABLE " + table + "(NAME  VARCHAR(30) NOT NULL, NUMBER INT)"
+    command = "CREATE TABLE " + table + "(CITY VARCHAR(30) NOT NULL, LATITUDE DECIMAL(5,2), LONGITUDE DECIMAL(5,2))"
     try:
         conn = pymysql.connect(address, username, password, database)
         cursor = conn.cursor()
@@ -70,9 +70,10 @@ def createTable(address, username, password, database, table):
 '''
 Executes SQL INSERT command to add one row to he table
 '''
-def insertIntoTable(address, username, password, database, table, name, number):
+def insertIntoTable(address, username, password, database, table, city, lat, long):
 
-    command = "INSERT INTO " + table + "(NAME, NUMBER) VALUES('" + name + "', " + number + ")"
+    command = "INSERT INTO " + table + "(CITY, LATITUDE, LONGITUDE) VALUES('" + city + "', " + lat + ", " + long +")"
+    print(command)
     try:
         conn = pymysql.connect(address, username, password, database)
         cursor = conn.cursor()
@@ -105,48 +106,20 @@ def selectFromTable(address, username, password, database, table):
         cursor.execute(command)
         # fetch multiple row data
         results = cursor.fetchall()
-        print(results)
+        for row in results:
+            print("{0} {1} {2}".format(row[0], row[1], row[2]))
         conn.close()
     except pymysql.InternalError as e:
         print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
-        return False
+        return None
     except pymysql.OperationalError as e:
         print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
-        return False
+        return None
     except pymysql.ProgrammingError as e:
         print('ERROR: {!r}, errno is {}'.format(e, e.args[0]))
-        return False
+        return None
     except:
         print('UNKNOWN ERROR')
-        return False
+        return None
         
-    return True    
-    
-'''
-In main function connection with database is checked, then couple of operations are proceeded:
- -> table TESTING is created (if table already exists then it is dropped)
- -> three values are inserted into table TESTING
- -> all values in table TESTING are fetched and displayed
-'''  
-def main():
-    address = "localhost"
-    user = "root"
-    password = ""
-    database = "devops"
-    table = "TESTING"
-    if(testConnection(address,user,password,database)):
-        print("Connection tested with success")
-    if(createTable(address,user,password,database,table)):
-        print("Table created with success")
-    if(insertIntoTable(address,user,password,database, table, "Radoslaw", "1")):
-        print("Row added successfully")
-    if(insertIntoTable(address,user,password,database, table, "Joe", "2")):
-        print("Row added successfully")
-    if(insertIntoTable(address,user,password,database, table, "Sue", "3")):
-        print("Row added successfully")
-    if(selectFromTable(address,user,password,database, table)):
-        print("Data fetched successfully")
-    
-       
-if __name__ == "__main__":
-    main()
+    return results
