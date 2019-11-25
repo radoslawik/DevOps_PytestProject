@@ -1,4 +1,5 @@
 from datab import *
+from math import radians, cos, sin, asin, sqrt
 
 address = "localhost"
 user = "root"
@@ -44,10 +45,59 @@ def getData():
     if(data):
         print("Data fetched successfully")
     return data
+
+"""
+Get the city coordinates
+"""  
+def getCords(results, city):
+    if(results == None):
+        print("No data provided")
+        return None
+    if(city == ""):
+        print("No city specified")
+        return None
+    for row in results:
+        if(row[0] == city):
+            return (row[1], row[2]) # latitude and longitude
+    print("Couldn't find this city")
+    return None
+            
+"""
+Calculate the distance between two cities using haversine formula
+"""
+def calcDistance(city1, city2):
     
+    # convert coordinates to float
+    lat1 = float(city1[0])
+    lon1 = float(city1[1])
+    lat2 = float(city2[0])
+    lon2 = float(city2[1])
+    
+    # convert decimal degrees to radians 
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1 
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a)) 
+    r = 6370 # earth radius
+    ans = str(round(c*r, 2)) # round and save as string to simplify
+    return ans
 
        
 if __name__ == "__main__":
     
-    putData()
-    data = getData()
+    putData() # put data into database -> values specified in datab.py
+    data = getData() # retrieve data from database
+    cordCracow = getCords(data, "Cracow") #retrieve city coordinates
+    cordParis = getCords(data, "Paris")
+    cordRome = getCords(data, "Rome")
+    
+    print("Distance between Paris and Rome [km]: " )
+    print(calcDistance(cordParis, cordRome)) # calculate and print result
+    
+    print("Distance between Cracow and Rome [km]: " )
+    print(calcDistance(cordCracow, cordRome))
+    
+    print("Distance between Paris and Cracow [km]: " )
+    print(calcDistance(cordParis, cordCracow))
