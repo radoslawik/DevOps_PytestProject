@@ -2,11 +2,6 @@ from datab import *
 from math import radians, cos, sin, asin, sqrt
 import sys
 
-address = []
-password = []
-user = []
-table = []
-database = []
 '''
 In putData function connection with database is checked, then couple of operations are proceeded:
  -> database is created (if database already exists then it is dropped)
@@ -48,6 +43,9 @@ def getData(address, user, password, database, table):
     data = selectFromTable(address,user,password,database,table)
     if(data):
         print("Data fetched successfully")
+    else:
+        print("Could not fetch data.")
+        return []
     return data
 
 """
@@ -85,13 +83,15 @@ def calcDistance(city1, city2):
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
     c = 2 * asin(sqrt(a)) 
     r = 6370 # earth radius
-    ans = str(round(c*r, 2)) # round and save as string to simplify
+    ans = round(c*r, 2) # round to 2 decimals
     return ans
 
 def main(address, user, password, database, table):
 
     putData(address, user, password, database, table) # put data into database -> values specified in datab.py
     data = getData(address, user, password, database, table) # retrieve data from database
+    if(data == []):
+        return
     cordCracow = getCords(data, "Cracow") #retrieve city coordinates
     cordParis = getCords(data, "Paris")
     cordRome = getCords(data, "Rome")

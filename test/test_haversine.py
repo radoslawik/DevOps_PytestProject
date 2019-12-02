@@ -37,7 +37,10 @@ def test_calcDistance():
     cordCracow = hv.getCords(hv.getData(address, user, password, database, table), "Cracow") # get coordinates of the city
     cordParis = hv.getCords(hv.getData(address, user, password, database, table), "Paris")
     cordRome = hv.getCords(hv.getData(address, user, password, database, table), "Rome")
-    assert hv.calcDistance(cordCracow, cordParis) == "1275.37" # correct value
-    assert hv.calcDistance(cordCracow, cordRome) == "1071.5" # correct value
-    assert hv.calcDistance(cordParis, cordRome) == "1106.56" # correct value
-    assert hv.calcDistance(cordParis, cordRome) != "923.56" # wrong value
+    assert hv.calcDistance(cordCracow, cordParis) >= 1270 # correct output is ~1275, giving some error margin
+    assert hv.calcDistance(cordCracow, cordParis) <= 1280
+    assert hv.calcDistance(cordCracow, cordRome) >= 1065
+    assert hv.calcDistance(cordCracow, cordRome) <= 1075
+    assert hv.calcDistance(cordParis, cordRome) >= 1100
+    assert hv.calcDistance(cordParis, cordRome) <= 1110
+    assert hv.calcDistance(cordParis, cordRome) != 800 # wrong value
