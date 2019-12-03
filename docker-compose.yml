@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+   app:
+    build: .
+    depends_on:
+     - db
+    environment:
+     MYSQL_PASS: pass
+     MYSQL_ADDRESS: localhost
+     MYSQL_USER: root
+   db:
+     image: mysql:5.7
+     restart: always
+     security_opt:
+        - seccomp:unconfined
+     environment:
+       MYSQL_ROOT_PASSWORD: pass
+
+     ports:
+        - "3306:3306"

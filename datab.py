@@ -96,11 +96,12 @@ Executes SQL INSERT command to add one row to he table
 '''
 def insertIntoTable(address, username, password, database, table, city, lat, long):
 
-    command = "INSERT INTO " + table + "(CITY, LATITUDE, LONGITUDE) VALUES('" + city + "', " + lat + ", " + long +")"
+    command = "INSERT INTO " + database + "." + table + "(CITY, LATITUDE, LONGITUDE) VALUES('" + city + "', " + lat + ", " + long +")"
     print(command)
     try:
         conn = pymysql.connect(address, username, password, database)
         cursor = conn.cursor()
+        cursor.execute("SET autocommit = 1") # fix for linux
         cursor.execute(command)
         conn.close()
     except pymysql.InternalError as e:

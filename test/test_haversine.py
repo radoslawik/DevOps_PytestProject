@@ -5,7 +5,7 @@ Created on Fri Nov 15 10:57:14 2019
 @author: Radek
 """
 
-import sys
+import sys, os
 
 #################### MAKE CHANGES HERE #########################
 address = "localhost" # address of the database
@@ -13,7 +13,7 @@ user = "root" # your username
 password = "" # your password
 database = "pytestproject_testing" # your database name
 table = "test_table" # table name to store names and numbers (default "TESTING")
-sys.path.insert(1, 'D:/Dokumenty/Studia/Master2/DevOps/PytestProject') # path to testing file ("haversine.py")
+sys.path.append(os.path.realpath(os.path.dirname(__file__)+"/..")) # path to testing file ("haversine.py")
 ########################### END ###############################
 
 #import testing module
