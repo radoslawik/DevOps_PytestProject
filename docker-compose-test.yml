@@ -9,7 +9,7 @@ services:
      MYSQL_PASS: pass
      MYSQL_ADDRESS: db
      MYSQL_USER: root
-    command: python ./haversine.py db root pass
+    command: pytest
    db:
      image: mysql:5.7
      restart: always

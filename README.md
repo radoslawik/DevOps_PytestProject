@@ -40,5 +40,7 @@ pytest
 ```
 NOTICE: mySQL server address, username and password have to be changes in test_haversine.py and test_datab.py
 
+sudo docker-compose --file docker-compose-test.yml up --abort-on-container-exit
+
 # Student info
 PUDELKO Radoslaw

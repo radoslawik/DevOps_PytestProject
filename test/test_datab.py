@@ -5,20 +5,35 @@ Created on Fri Nov 15 10:57:14 2019
 @author: Radek
 """
 
-
 import sys, os
 
 #################### MAKE CHANGES HERE #########################
-address = "localhost" # address of the database
-user = "root" # your username
-password = "" # your password
+default_address = "localhost" # address of the database
+default_user = "root" # your username
+default_password = "" # your password
 database = "pytestproject_testing" # your database name
 table = "test_table" # table name to store names and numbers (default "TESTING")
-sys.path.append(os.path.realpath(os.path.dirname(__file__)+"/..")) # path to testing file ("datab.py")
 ########################### END ###############################
 
-#import testing module
-import datab
+#### CHECK THE ENVIRONMENTAL VARIABLES - DO NOT MODIFY ########
+if os.environ.get('MYSQL_ADDRESS') is not None:
+    address = os.environ['MYSQL_ADDRESS']
+else:
+    address = default_address 
+    
+if os.environ.get('MYSQL_USER') is not None:
+    user = os.environ['MYSQL_USER']  
+else:
+    user = default_user 
+
+if os.environ.get('MYSQL_PASS') is not None:
+    password = os.environ['MYSQL_PASS']  
+else:
+    password = default_password 
+###############################################################
+
+sys.path.append(os.path.realpath(os.path.dirname(__file__)+"/..")) # path to testing file ("datab.py")
+import datab #import testing module
 
 def test_createDatabase():
     assert datab.createDatabase(address, user, password, database) == True # correct data
