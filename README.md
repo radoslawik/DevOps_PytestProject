@@ -15,7 +15,7 @@ To run this application you need to have installed followed components:
  - [pytest](https://docs.pytest.org/en/latest/)
  - [pymysql](https://pypi.org/project/PyMySQL/) (only if you want to run application tests)
 
-If you want only to check how this application works you can use [docker](https://www.docker.com/get-started) container. To do so, make sure you have docker installed. You can find the installation guide [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/). After follow the instructions in the [Run in container](https://github.com/radoslawik/DevOps_PytestProject/README.md "Run in container") part.
+If you want only to check how this application works you can use [docker](https://www.docker.com/get-started) container. To do so, make sure you have docker installed. You can find the installation guide [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/). After follow the instructions in the __Run in container__ part.
 
 If you have python with pip installed, configuration of libraries is easy. To install them you can just simply type 
 ```bash
