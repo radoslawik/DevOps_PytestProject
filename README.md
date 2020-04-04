@@ -1,5 +1,5 @@
-# DevOps_PytestProject
-Calculating distance between two cities using Harvesine formula. Testing simple database queries with Pytest framework. Features of the application consists of:
+# Simple project using DevOps tools & techniques
+Calculating distance between two cities using Harvesine formula. Testing simple database queries with PyMySQL and PyTest frameworks. Features of the application consists of:
  - Creating database
  - Testing connection with database
  - Creating a table in database
@@ -7,8 +7,9 @@ Calculating distance between two cities using Harvesine formula. Testing simple 
  - Reading data from table
  - Fetching coordinates of the city from the data
  - Calculating distance between two cities
+ - Full unit tests included
  
-# Prerequisites
+## Prerequisites
 To run this application you need to have installed followed components:
  - [python3](https://www.python.org/downloads/) version 3.8 recommended
  - [mysql](https://dev.mysql.com/) version at least 5.5 (8 recommended)
@@ -23,7 +24,7 @@ pip install pytest
 pip install pymysql
 ```
 
-# Run application
+## Run application
 
 Clone or download repository. To be able to run the project also make sure that mysql client is running. __WARNING__: Before running the program you can modify the default database name in haversine.py (otherwise existing one with default name will be dropped). Default database name is "pytestproject_testing". 
 To run the application just go the project folder and simply use command
@@ -40,7 +41,7 @@ To run the tests use instead (also in the project main directory)
 ```bash
 pytest
 ```
-# Run in container
+## Run in container
 
 Running the application using docker-compose is very simple. To run the application you can use following command:
 ```bash
@@ -52,5 +53,3 @@ docker-compose --file docker-compose-test.yml up --abort-on-container-exit
 ```
 
 __NOTICE__: if you want to change the default credentials you should modify them in the file docker-compose.yml
-# Student info
-PUDELKO Radoslaw
